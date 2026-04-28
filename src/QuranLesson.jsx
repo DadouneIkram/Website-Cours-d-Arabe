@@ -66,12 +66,7 @@ const quranLessons = [
   }
 ];
 
-  const challenges = [
-    { text: "سَيَّارَةٌ حَمْرَاءُ", fr: "Une voiture rouge", img: "🚗🔴" },
-    { text: "كِتَابٌ أَزْرَقُ", fr: "Un livre bleu", img: "📘🔵" },
-    { text: "تُفَّاحَةٌ خَضْرَاءُ", fr: "Une pomme verte", img: "🍏🟢" },
-    { text: "قَلَمٌ أَسْوَدُ", fr: "Un stylo noir", img: "🖊️⚫" }
-  ];
+
 
 export default function QuranLesson({ onScoreUpdate }) {
   const [selectedSurah, setSelectedSurah] = useState(0);

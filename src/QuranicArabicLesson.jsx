@@ -3,16 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import NextLesson from "./NextLesson";
 import QuranLesson from "./QuranLesson";
 
-const vocabulary = [
-  { masc: "طَبِيْب", fem: "طَبِيْبَة", fr: "Médecin", icon: "🩺" },
-  { masc: "طَبَّاخ", fem: "طَبَّاخَة", fr: "Cuisinier", icon: "👨‍🍳" },
-  { masc: "سَعِيد", fem: "سَعِيدَة", fr: "Heureux", icon: "😊" },
-  { masc: "مَرِيض", fem: "مَرِيضَة", fr: "Malade", icon: "🤒" },
-  { masc: "مُهَنْدِس", fem: "مُهَنْدِسَة", fr: "Ingénieur", icon: "🏗️" },
-  { masc: "قَوِيّ", fem: "قَوِيَّة", fr: "Fort", icon: "💪" },
-  { masc: "رَسَّام", fem: "رَسَّامَة", fr: "Peintre", icon: "🎨" },
-  { masc: "صَغِير", fem: "صَغِيرَة", fr: "Petit", icon: "👶" },
-];
 
 const Card = ({ title, icon, children }) => (
   <motion.div
@@ -289,7 +279,7 @@ const App = () => {
         className="pt-16 pb-20 px-4 md:px-8 text-center bg-white shadow-md border-b-2 border-teal-100"
       >
         <h1 className="text-5xl md:text-6xl font-extrabold text-teal-600 mb-3 font-serif">
-          Séance d'Arabe 🔄
+          Cours d'Arabe 
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
           Bienvenue ! 🌸
@@ -301,26 +291,28 @@ const App = () => {
           whileTap={{ scale: 0.95 }}
           className="px-8 py-4 bg-teal-500 text-white text-lg font-semibold rounded-full shadow-lg hover:bg-teal-600 transition"
         >
-          Commencer la révision
+          Commencer la Séance
         </motion.button>
-        <button
-          onClick={() => {
-            setCurrentPage("next-lesson");
-            window.scrollTo(0, 0); // Pour remonter en haut de page
-          }}
-          className="flex items-center justify-center px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-black rounded-full shadow-2xl hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-110 shadow-indigo-200"
-        >
-          PASSER À LA SÉANCE PROCHAINE 🚀
-        </button>
-        <button
-          onClick={() => {
-            setCurrentPage("quran-lesson");
-            window.scrollTo(0, 0); // Pour remonter en haut de page
-          }}
-          className="flex items-center justify-center px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-black rounded-full shadow-2xl hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-110 shadow-indigo-200"
-        >
-          PASSER À LA SÉANCE quran 🚀
-        </button>
+        <div className="mt-12 flex justify-center mx-auto gap-3">
+          <button
+            onClick={() => {
+              setCurrentPage("next-lesson");
+              window.scrollTo(0, 0); // Pour remonter en haut de page
+            }}
+            className="flex items-center justify-center px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-black rounded-full shadow-2xl hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-110 shadow-indigo-200"
+          >
+            PASSER À LA SÉANCE PROCHAINE 🚀
+          </button>
+          <button
+            onClick={() => {
+              setCurrentPage("quran-lesson");
+              window.scrollTo(0, 0); // Pour remonter en haut de page
+            }}
+            className="flex items-center justify-center px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-black rounded-full shadow-2xl hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-110 shadow-indigo-200"
+          >
+            PASSER À LA SÉANCE quran 🚀
+          </button>
+        </div>
       </motion.header>
 
       <AnimatePresence>
@@ -2246,7 +2238,7 @@ const App = () => {
               {/* Petit exercice de lecture des couleurs */}
               <div className="mt-8 bg-teal-50 p-4 rounded-xl text-center">
                 <h4 className="font-bold text-teal-700 mb-2">
-                  💡 Défi Lecture pour Halim et Liyana :
+                  💡 Défi Lecture :
                 </h4>
                 <p className="text-lg font-script space-x-4">
                   <span>أَحْمَر</span> — <span>أَزْرَق</span> —{" "}
@@ -2260,7 +2252,7 @@ const App = () => {
             </Card>
 
             {/* Conclusion */}
-            <Card icon="🌟" title="Bravo Liyana et Halim ! 🎉">
+            <Card icon="🌟" title="Bravo! 🎉">
               <div className="text-center">
                 <p className="text-2xl font-bold text-teal-700 mb-4">
                   Vous avez terminé la révision complète ! 🌸
