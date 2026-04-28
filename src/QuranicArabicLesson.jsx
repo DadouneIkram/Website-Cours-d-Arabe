@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NextLesson from "./NextLesson";
 import QuranLesson from "./QuranLesson";
+import Conjugaison from "./Conjugaison";
 
 
 const Card = ({ title, icon, children }) => (
@@ -265,6 +266,9 @@ const App = () => {
   if (currentPage === "quran-lesson") {
     return <QuranLesson onBack={() => setCurrentPage("revision")} />;
   }
+  if (currentPage === "conjugaison-lesson") {
+    return <Conjugaison onBack={() => setCurrentPage("revision")} />;
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 font-sans text-gray-800">
       <style>{`
@@ -311,6 +315,16 @@ const App = () => {
             className="flex items-center justify-center px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-black rounded-full shadow-2xl hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-110 shadow-indigo-200"
           >
             PASSER À LA SÉANCE quran 🚀
+          </button>
+
+            <button
+            onClick={() => {
+              setCurrentPage("conjugaison-lesson");
+              window.scrollTo(0, 0); // Pour remonter en haut de page
+            }}
+            className="flex items-center justify-center px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xl font-black rounded-full shadow-2xl hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-110 shadow-indigo-200"
+          >
+            PASSER À LA SÉANCE CONJUGAISON 🚀
           </button>
         </div>
       </motion.header>
