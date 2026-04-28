@@ -36,6 +36,81 @@ const Conjugaison = ({ onBack }) => {
               exit={{ opacity: 0, x: 20 }}
               className="space-y-16"
             >
+
+              {/* --- SECTION : LES COMPOSANTS DE LA PHRASE (AQSAM AL-KALAM) --- */}
+<section className="space-y-8">
+  <div className="bg-white p-8 rounded-[40px] shadow-xl border-2 border-slate-100">
+    <div className="text-center mb-10">
+      <h2 className="text-3xl font-black text-slate-800 mb-2">De quoi est faite une phrase ? 🧱</h2>
+      <p className="text-slate-500 italic">"Aqsam Al-Kalam" : Les 3 types de mots en Arabe</p>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* 1. LE NOM */}
+      <div className="bg-rose-50 p-6 rounded-3xl border-2 border-rose-100 flex flex-col items-center text-center">
+        <div className="w-16 h-16 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-rose-200">اسْم</div>
+        <h3 className="text-rose-700 font-bold text-xl mb-2">L'ISM (Le Nom)</h3>
+        <p className="text-slate-600 text-sm leading-relaxed">
+          C'est une personne, un objet ou un animal. <br/>
+          <span className="font-bold text-rose-500">Ex: بَيْت (Maison), وَلَد (Garçon)</span>
+        </p>
+      </div>
+
+      {/* 2. LE VERBE */}
+      <div className="bg-sky-50 p-6 rounded-3xl border-2 border-sky-100 flex flex-col items-center text-center">
+        <div className="w-16 h-16 bg-sky-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-sky-200">فِعْل</div>
+        <h3 className="text-sky-700 font-bold text-xl mb-2">Le FI'L (Le Verbe)</h3>
+        <p className="text-slate-600 text-sm leading-relaxed">
+          C'est l'action qui change avec le temps. <br/>
+          <span className="font-bold text-sky-500">Ex: يَسْكُنُ (Il habite), يَلْعَبُ (Il joue)</span>
+        </p>
+      </div>
+
+      {/* 3. LA PARTICULE */}
+      <div className="bg-amber-50 p-6 rounded-3xl border-2 border-amber-100 flex flex-col items-center text-center">
+        <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-amber-200">حَرْف</div>
+        <h3 className="text-amber-700 font-bold text-xl mb-2">Le HARF (Lien)</h3>
+        <p className="text-slate-600 text-sm leading-relaxed">
+          Ce sont les petits mots qui collent la phrase. <br/>
+          <span className="font-bold text-amber-500">Ex: فِي (Dans), عَلَى (Sur), بِـ (Avec)</span>
+        </p>
+      </div>
+    </div>
+
+    {/* EXEMPLE DE DÉCOMPOSITION VISUELLE */}
+    <div className="mt-12 p-8 bg-slate-50 rounded-3xl border border-slate-100">
+      <h4 className="text-center font-bold text-slate-400 uppercase text-xs tracking-widest mb-6">Analyse d'une phrase complète</h4>
+      <div className="flex flex-wrap justify-center items-center gap-4 text-center">
+        
+        {/* Verbe */}
+        <div className="flex flex-col items-center">
+          <div className="px-6 py-4 bg-sky-500 text-white rounded-2xl font-script text-3xl shadow-md">يَلْعَبُ</div>
+          <p className="mt-2 text-xs font-bold text-sky-600">FI'L (Action)</p>
+        </div>
+
+        {/* Nom 1 */}
+        <div className="flex flex-col items-center">
+          <div className="px-6 py-4 bg-rose-500 text-white rounded-2xl font-script text-3xl shadow-md">الْوَلَدُ</div>
+          <p className="mt-2 text-xs font-bold text-rose-600">ISM (Sujet)</p>
+        </div>
+
+        {/* Harf */}
+        <div className="flex flex-col items-center">
+          <div className="px-6 py-4 bg-amber-500 text-white rounded-2xl font-script text-3xl shadow-md">فِي</div>
+          <p className="mt-2 text-xs font-bold text-amber-600">HARF (Lien)</p>
+        </div>
+
+        {/* Nom 2 */}
+        <div className="flex flex-col items-center">
+          <div className="px-6 py-4 bg-rose-500 text-white rounded-2xl font-script text-3xl shadow-md">الْبَيْتِ</div>
+          <p className="mt-2 text-xs font-bold text-rose-600">ISM (Lieu)</p>
+        </div>
+
+      </div>
+      <p className="text-center mt-8 text-slate-500 italic text-lg">"Le garçon joue dans la maison"</p>
+    </div>
+  </div>
+</section>
               {/* --- PARTIE 1 : L'INTRODUCTION (LA RACINE) --- */}
               <section className="space-y-6">
                 <div className="text-center space-y-4">
@@ -511,6 +586,7 @@ const Conjugaison = ({ onBack }) => {
                   </div>
                 </div>
               </section>
+
 
               {/* BOUTONS FINAUX */}
               <div className="flex flex-col md:flex-row gap-4 pt-10">
