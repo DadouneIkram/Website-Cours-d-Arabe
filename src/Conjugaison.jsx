@@ -759,7 +759,137 @@ const Conjugaison = ({ onBack }) => {
                   </div>
                 </div>
               </section>
+{/* --- PARTIE 1 : LE PASSÉ (AL-MAADI) --- */}
+<section className="space-y-8">
+  <div className="flex items-center gap-4">
+    <div className="h-px bg-slate-200 flex-1"></div>
+    <h2 className="text-2xl font-black text-slate-800 uppercase tracking-widest">
+      La Règle du Passé
+    </h2>
+    <div className="h-px bg-slate-200 flex-1"></div>
+  </div>
 
+  <div className="bg-indigo-600 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+    <div className="absolute top-0 right-0 p-4 opacity-10 text-9xl font-script">
+      ت
+    </div>
+    <h3 className="text-xl font-bold mb-6 flex items-center">
+      <span className="bg-indigo-500 p-2 rounded-lg mr-3">⏳</span>
+      Le code secret des suffixes
+    </h3>
+    <p className="mb-8 text-indigo-50">
+      Pour parler au passé (ce que j'ai <strong>déjà fini</strong>), on ajoute une lettre (ou plusieurs) à la 
+      <strong> fin</strong> de la racine :
+    </p>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {[
+        {
+          p: "Ana (Moi)",
+          letter: "تُ",
+          desc: "Tu (O-u)",
+          color: "bg-pink-500",
+        },
+        {
+          p: "Anta (Toi 👦)",
+          letter: "تَ",
+          desc: "Ta",
+          color: "bg-blue-400",
+        },
+        {
+          p: "Anti (Toi 👧)",
+          letter: "تِ",
+          desc: "Ti",
+          color: "bg-rose-400",
+        },
+        {
+          p: "Nahnu (Nous)",
+          letter: "نَا",
+          desc: "Naa",
+          color: "bg-amber-500",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center"
+        >
+          <div
+            className={`w-12 h-12 ${item.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl font-script font-bold`}
+          >
+            {item.letter}
+          </div>
+          <p className="font-bold">{item.p}</p>
+          <p className="text-xs text-indigo-200 uppercase">
+            {item.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+{/* --- PARTIE 3 : L'ORDRE (L'IMPÉRATIF) --- */}
+<section className="space-y-8">
+  <div className="flex items-center gap-4">
+    <div className="h-px bg-slate-200 flex-1"></div>
+    <h2 className="text-2xl font-black text-slate-800 uppercase tracking-widest">
+      Donner un Ordre
+    </h2>
+    <div className="h-px bg-slate-200 flex-1"></div>
+  </div>
+
+  <div className="bg-orange-600 p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden">
+    <div className="absolute top-0 right-0 p-4 opacity-10 text-9xl font-script">
+      ا
+    </div>
+    <h3 className="text-xl font-bold mb-6 flex items-center">
+      <span className="bg-orange-500 p-2 rounded-lg mr-3">📢</span>
+      Le mode "Boss" (Al-Amr)
+    </h3>
+    <p className="mb-8 text-orange-50">
+      Pour donner un ordre, on utilise souvent un <strong>Alif (ا)</strong> au début et on change 
+      <strong> la fin</strong> selon à qui on parle :
+    </p>
+
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {[
+        {
+          p: "Toi (Garçon)",
+          letter: "ـْ",
+          desc: "Sukun (Silence)",
+          color: "bg-slate-700",
+        },
+        {
+          p: "Toi (Fille)",
+          letter: "ـي",
+          desc: "Ya (Iii)",
+          color: "bg-rose-500",
+        },
+        {
+          p: "Vous (Pluriel)",
+          letter: "ـوا",
+          desc: "Waw + Alif",
+          color: "bg-cyan-500",
+        },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center"
+        >
+          <div
+            className={`w-12 h-12 ${item.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl font-script font-bold`}
+          >
+            {item.letter}
+          </div>
+          <p className="font-bold">{item.p}</p>
+          <p className="text-xs text-orange-200 uppercase">
+            {item.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
               {/* BOUTON TRANSITION */}
               <div className="text-center pt-10">
                 <button
@@ -781,174 +911,204 @@ const Conjugaison = ({ onBack }) => {
               className="space-y-16"
             >
               {/* --- PARTIE 3 : LES EXEMPLES (LES VERBES) --- */}
-              <section className="space-y-12">
-                <h2 className="text-3xl font-bold text-slate-800 text-center italic underline decoration-indigo-300">
-                  Les Verbes du Quotidien ⚽🍎
-                </h2>
+              <section className="space-y-16">
+  {/* --- ÉTAPE 1 : LE DICTIONNAIRE DES CHAMPIONS --- */}
+  <div className="bg-slate-50 p-8 rounded-[3rem] border-4 border-dashed border-slate-200">
+    <div className="text-center mb-8">
+      <h2 className="text-3xl font-black text-slate-800 uppercase tracking-tighter">
+        🚀 Ton Trésor de Verbes
+      </h2>
+      <p className="text-slate-500">Mémorise ces actions avant de les transformer !</p>
+    </div>
 
-                {/* VERBE 1 : HABITER */}
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
-                  <div className="bg-indigo-600 p-6 text-white flex justify-between items-center">
-                    <div>
-                      <h3 className="text-xl font-bold">
-                        Verbe : SAKANA (Habiter)
-                      </h3>
-                    </div>
-                    <span className="text-4xl font-script opacity-50 text-white">
-                      يَسْكُنُ
-                    </span>
-                  </div>
-                  <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {[
-                      {
-                        pronom: "أَنَا",
-                        verb: "أَسْكُنُ",
-                        trans: "Ana askunu",
-                        mean: "J'habite",
-                      },
-                      {
-                        pronom: "أَنْتَ",
-                        verb: "تَسْكُنُ",
-                        trans: "Anta taskunu",
-                        mean: "Tu habites (👦)",
-                      },
-                      {
-                        pronom: "هُوَ",
-                        verb: "يَسْكُنُ",
-                        trans: "Huwa yaskunu",
-                        mean: "Il habite",
-                      },
-                      {
-                        pronom: "نَحْنُ",
-                        verb: "نَسْكُنُ",
-                        trans: "Nahnu naskunu",
-                        mean: "Nous habitons",
-                      },
-                    ].map((row, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center p-4 bg-slate-50 rounded-2xl border border-slate-100"
-                      >
-                        <span className="text-3xl font-script text-indigo-700 w-16">
-                          {row.pronom}
-                        </span>
-                        <div className="ml-4 flex-1 text-center">
-                          <p className="text-2xl font-script font-black text-slate-800 tracking-wide">
-                            {row.verb}
-                          </p>
-                          <p className="text-xs text-slate-400 font-medium uppercase">
-                            {row.trans}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="bg-indigo-50 p-4 text-center text-indigo-700 font-medium border-t border-indigo-100 italic">
-                    Exemple : أَنَا أَسْكُنُ فِي فَرَنْسَا (J'habite en France)
-                  </div>
-                </div>
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {[
+        { act: "Boire", ar: "شَرِبَ", trans: "Shariba", icon: "🥛", color: "bg-blue-100 text-blue-700" },
+        { act: "Écrire", ar: "كَتَبَ", trans: "Kataba", icon: "📝", color: "bg-amber-100 text-amber-700" },
+        { act: "Lire", ar: "قَرَأَ", trans: "Qara'a", icon: "📖", color: "bg-emerald-100 text-emerald-700" },
+        { act: "Sortir", ar: "خَرَجَ", trans: "Kharaja", icon: "🚪", color: "bg-rose-100 text-rose-700" },
+        { act: "Entrer", ar: "دَخَلَ", trans: "Dakhala", icon: "🏠", color: "bg-purple-100 text-purple-700" },
+      ].map((v, i) => (
+        <div key={i} className={`${v.color} p-4 rounded-2xl text-center shadow-sm border border-white/50`}>
+          <div className="text-3xl mb-2">{v.icon}</div>
+          <div className="font-script text-2xl font-bold">{v.ar}</div>
+          <div className="text-xs font-black uppercase opacity-60">{v.trans}</div>
+          <div className="text-sm mt-1 font-medium">{v.act}</div>
+        </div>
+      ))}
+    </div>
+  </div>
 
-                {/* VERBE 2 : MANGER */}
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
-                  <div className="bg-orange-500 p-6 text-white flex justify-between items-center">
-                    <h3 className="text-xl font-bold">
-                      Verbe : AKALA (Manger)
-                    </h3>
-                    <span className="text-4xl font-script opacity-50">
-                      يَأْكُلُ
-                    </span>
-                  </div>
-                  <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {[
-                      {
-                        pronom: "أَنَا",
-                        verb: "آكُلُ",
-                        trans: "Ana akulu",
-                        mean: "Je mange",
-                      },
-                      {
-                        pronom: "أَنْتَ",
-                        verb: "تَأْكُلُ",
-                        trans: "Anta takulu",
-                        mean: "Tu manges",
-                      },
-                      {
-                        pronom: "هُوَ",
-                        verb: "يَأْكُلُ",
-                        trans: "Huwa yakulu",
-                        mean: "Il mange",
-                      },
-                      {
-                        pronom: "نَحْنُ",
-                        verb: "نَأْكُلُ",
-                        trans: "Nahnu nakulu",
-                        mean: "Nous mangeons",
-                      },
-                    ].map((row, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between items-center p-4 bg-orange-50 rounded-2xl border border-orange-100"
-                      >
-                        <span className="text-2xl font-script text-orange-700">
-                          {row.pronom}
-                        </span>
-                        <p className="text-2xl font-script font-black text-slate-800">
-                          {row.verb}
-                        </p>
-                        <span className="text-xs font-bold text-slate-400 uppercase">
-                          {row.mean}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="bg-orange-50 p-4 text-center text-orange-700 font-medium italic">
-                    Exemple : هُوَ يَأْكُلُ تُفَّاحَةً (Il mange une pomme)
-                  </div>
-                </div>
+  {/* --- ÉTAPE 2 : LE TABLEAU MAGIQUE DU PRÉSENT --- */}
+  <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
+    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white">
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-2xl font-black uppercase">Verbe : DARASA (Étudier) 📚</h3>
+          <p className="text-indigo-100">C'est ici que la magie opère !</p>
+        </div>
+        <div className="text-5xl font-script opacity-30 rotate-12">يَدْرُسُ</div>
+      </div>
+    </div>
 
-                {/* VERBE 3 : ÉTUDIER */}
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
-                  <div className="bg-purple-600 p-6 text-white flex justify-between items-center">
-                    <h3 className="text-xl font-bold">
-                      Verbe : DARASA (Étudier)
-                    </h3>
-                    <span className="text-4xl font-script opacity-50">
-                      يَدْرُسُ
-                    </span>
-                  </div>
-                  <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {[
-                      { pronom: "أَنَا", verb: "أَدْرُسُ", m: "J'étudie" },
-                      { pronom: "أَنْتَ", verb: "تَدْرُسُ", m: "Tu étudies" },
-                      { pronom: "هُوَ", verb: "يَدْرُسُ", m: "Il étudie" },
-                      {
-                        pronom: "نَحْنُ",
-                        verb: "نَدْرُسُ",
-                        m: "Nous étudions",
-                      },
-                    ].map((row, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between items-center p-4 bg-purple-50 rounded-2xl border border-purple-100"
-                      >
-                        <span className="text-2xl font-script text-purple-700">
-                          {row.pronom}
-                        </span>
-                        <p className="text-2xl font-script font-black text-slate-800">
-                          {row.verb}
-                        </p>
-                        <span className="text-xs font-bold text-slate-400 uppercase">
-                          {row.m}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="bg-purple-50 p-4 text-center text-purple-700 font-medium italic">
-                    Exemple : نَحْنُ نَدْرُسُ الْعَرَبِيَّةَ (Nous étudions
-                    l'arabe)
-                  </div>
-                </div>
-              </section>
+    <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[
+        { p: "Ana (Moi)", pr: "أَنَا", v: "أَ", rest: "دْرُسُ", t: "A-d rusu", c: "bg-orange-500" },
+        { p: "Anta (Toi 👦)", pr: "أَنْتَ", v: "تَ", rest: "دْرُسُ", t: "Ta-drusu", c: "bg-blue-500" },
+        { 
+          p: "Anti (Toi 👧)", 
+          pr: "أَنْتِ", 
+          v: "تَ", 
+          rest: "دْرُسُ", 
+          suffix: "ونَ", 
+          t: "Ta-drusu-na", 
+          c: "bg-pink-500",
+          special: "⚠️ Attention au 'iina' à la fin !" 
+        },
+        { p: "Huwa (Lui)", pr: "هُوَ", v: "يَ", rest: "دْرُسُ", t: "Ya-drusu", c: "bg-emerald-500" },
+        { p: "Hiya (Elle)", pr: "هِيَ", v: "تَ", rest: "دْرُسُ", t: "Ta-drusu", c: "bg-rose-500" },
+        { p: "Nahnu (Nous)", pr: "نَحْنُ", v: "نَ", rest: "دْرُسُ", t: "Na-drusu", c: "bg-purple-500" },
+      ].map((item, i) => (
+        <div key={i} className="relative group">
+          <div className="absolute -top-2 -left-2 bg-slate-800 text-white text-[10px] px-2 py-1 rounded-md z-10 font-bold uppercase">
+            {item.p}
+          </div>
+          <div className="bg-slate-50 border-2 border-slate-100 p-5 rounded-2xl hover:border-indigo-300 transition-all">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-2xl font-script text-slate-400">{item.pr}</span>
+              <div className="text-3xl font-script font-black text-slate-800">
+                <span className={`${item.c} text-white px-1 rounded-lg mr-0.5`}>{item.v}</span>
+                {item.rest}
+                {item.pr === "أَنْتِ" && <span className="text-pink-500 font-black">ينَ</span>}
+              </div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{item.t}</p>
+              {item.pr === "أَنْتِ" && (
+                <span className="text-[10px] text-pink-600 font-bold bg-pink-50 px-2 py-1 rounded-full">
+                  + Suffixe final
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* ASTUCE POUR LES ENFANTS */}
+    <div className="bg-amber-50 p-6 flex items-start gap-4 border-t border-amber-100">
+      <span className="text-3xl">💡</span>
+      <div>
+        <h4 className="font-bold text-amber-800">L'astuce de Grand-père !</h4>
+        <p className="text-amber-700 text-sm">
+          Remarque bien : <strong>Anta</strong> (Toi garçon) et <strong>Hiya</strong> (Elle) utilisent exactement la même lettre au début : le <span className="font-bold">ت (Ta)</span> ! 
+          Pour les différencier, regarde le petit pronom devant.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* --- ZONE D'ENTRAINEMENT --- */}
+  <div className="text-center">
+    <p className="text-slate-400 font-medium mb-4 italic">"Maintenant, essaie de faire pareil avec le verbe Kataba (Écrire)..."</p>
+    <div className="flex justify-center gap-2">
+       <div className="h-2 w-2 rounded-full bg-indigo-400"></div>
+       <div className="h-2 w-2 rounded-full bg-indigo-300"></div>
+       <div className="h-2 w-2 rounded-full bg-indigo-200"></div>
+    </div>
+  </div>
+
+  {/* VERBE 1 : HABITER (SAKANA) */}
+  <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 transform hover:scale-[1.01] transition-transform">
+    <div className="bg-indigo-600 p-6 text-white flex justify-between items-center">
+      <div>
+        <span className="bg-indigo-400/30 text-xs uppercase px-3 py-1 rounded-full mb-2 inline-block">Maison 🏠</span>
+        <h3 className="text-xl font-bold text-white">SAKANA (Habiter)</h3>
+      </div>
+      <span className="text-4xl font-script opacity-80">يَسْكُنُ</span>
+    </div>
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        { p: "أَنَا", v: "أَ", rest: "سْكُنُ", t: "Ana askunu", m: "J'habite", c: "text-orange-500" },
+        { p: "أَنْتَ", v: "تَ", rest: "سْكُنُ", t: "Anta taskunu", m: "Tu habites (👦)", c: "text-blue-500" },
+        { p: "هُوَ", v: "يَ", rest: "سْكُنُ", t: "Huwa yaskunu", m: "Il habite", c: "text-emerald-500" },
+        { p: "نَحْنُ", v: "نَ", rest: "سْكُنُ", t: "Nahnu naskunu", m: "Nous habitons", c: "text-purple-500" },
+      ].map((row, i) => (
+        <div key={i} className="flex items-center p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+          <span className="text-3xl font-script text-indigo-700 w-16">{row.p}</span>
+          <div className="ml-4 flex-1">
+            <p className="text-2xl font-script font-black text-slate-800">
+              <span className={row.c}>{row.v}</span>{row.rest}
+            </p>
+            <p className="text-xs text-slate-400 font-bold uppercase">{row.t}</p>
+          </div>
+          <span className="text-xs font-bold text-slate-400">{row.m}</span>
+        </div>
+      ))}
+    </div>
+    <div className="bg-indigo-50 p-4 text-center text-indigo-700 font-medium border-t border-indigo-100 italic">
+      Exemple : أَنَا <span className="font-bold">أَ</span>سْكُنُ فِي فَرَنْسَا (J'habite en France)
+    </div>
+  </div>
+
+  {/* VERBE 2 : JOUER (LA'IBA) - NOUVEAU & ÉNERGIQUE */}
+  <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 transform hover:scale-[1.01] transition-transform">
+    <div className="bg-emerald-500 p-6 text-white flex justify-between items-center">
+      <div>
+        <span className="bg-emerald-400/30 text-xs uppercase px-3 py-1 rounded-full mb-2 inline-block">Sport ⚽</span>
+        <h3 className="text-xl font-bold text-white">LA'IBA (Jouer)</h3>
+      </div>
+      <span className="text-4xl font-script opacity-80">يَلْعَبُ</span>
+    </div>
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        { p: "أَنَا", v: "أَ", rest: "لْعَبُ", m: "Je joue", c: "text-orange-500" },
+        { p: "أَنْتَ", v: "تَ", rest: "لْعَبُ", m: "Tu joues", c: "text-blue-500" },
+        { p: "هُوَ", v: "يَ", rest: "لْعَبُ", m: "Il joue", c: "text-emerald-500" },
+        { p: "نَحْنُ", v: "نَ", rest: "لْعَبُ", m: "Nous jouons", c: "text-purple-500" },
+      ].map((row, i) => (
+        <div key={i} className="flex justify-between items-center p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+          <span className="text-2xl font-script text-emerald-700">{row.p}</span>
+          <p className="text-2xl font-script font-black text-slate-800">
+            <span className={row.c}>{row.v}</span>{row.rest}
+          </p>
+          <span className="text-xs font-bold text-slate-400 uppercase">{row.m}</span>
+        </div>
+      ))}
+    </div>
+    <div className="bg-emerald-50 p-4 text-center text-emerald-700 font-medium italic">
+      Exemple : هُوَ <span className="font-bold">يَ</span>لْعَبُ كُرَةَ الْقَدَمِ (Il joue au football)
+    </div>
+  </div>
+
+  {/* VERBE 3 : MANGER (AKALA) */}
+  <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 transform hover:scale-[1.01] transition-transform">
+    <div className="bg-orange-500 p-6 text-white flex justify-between items-center">
+      <div>
+        <span className="bg-orange-400/30 text-xs uppercase px-3 py-1 rounded-full mb-2 inline-block">Miam 🍎</span>
+        <h3 className="text-xl font-bold text-white">AKALA (Manger)</h3>
+      </div>
+      <span className="text-4xl font-script opacity-80">يَأْكُلُ</span>
+    </div>
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        { p: "أَنَا", v: "آ", rest: "كُلُ", m: "Je mange", c: "text-orange-500" }, // Note: Ana Akulu s'écrit avec un Madda
+        { p: "أَنْتَ", v: "تَ", rest: "أْكُلُ", m: "Tu manges", c: "text-blue-500" },
+        { p: "هُوَ", v: "يَ", rest: "أْكُلُ", m: "Il mange", c: "text-emerald-500" },
+        { p: "نَحْنُ", v: "نَ", rest: "أْكُلُ", m: "Nous mangeons", c: "text-purple-500" },
+      ].map((row, i) => (
+        <div key={i} className="flex justify-between items-center p-4 bg-orange-50 rounded-2xl border border-orange-100 shadow-sm">
+          <span className="text-2xl font-script text-orange-700">{row.p}</span>
+          <p className="text-2xl font-script font-black text-slate-800">
+            <span className={row.c}>{row.v}</span>{row.rest}
+          </p>
+          <span className="text-xs font-bold text-slate-400 uppercase">{row.m}</span>
+        </div>
+      ))}
+    </div>
+    <div className="bg-orange-50 p-4 text-center text-orange-700 font-medium italic">
+      Exemple : نَحْنُ <span className="font-bold">نَ</span>أْكُلُ التُّفَّاحَةَ (Nous mangeons la pomme)
+    </div>
+  </div>
+</section>
 
               {/* ATELIER CRÉATIF */}
               <section className="space-y-6">
