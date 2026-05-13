@@ -3,7 +3,488 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Conjugaison = ({ onBack }) => {
   const [step, setStep] = useState(1); // 1: Introduction, 2: Verbes du quotidien
+  const [currentStep, setCurrentStep] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showFinished, setShowFinished] = useState(false);
+  const questions = [
+    // --- VERBE BOIRE (Shariba) ---
+    {
+      pronoun: "أَنَا (Ana)",
+      translation: "Je bois",
+      options: [
+        {
+          text: "أَشْرَبُ",
+          isCorrect: true,
+          feedback: "BRAVO ! ✅ Le 'A' (أَ) est pour 'Ana' (Moi)",
+        },
+        {
+          text: "تَشْرَبُ",
+          isCorrect: false,
+          feedback: "Faux ! 'Ta' c'est pour 'Tu' ou 'Elle'",
+        },
+        {
+          text: "يَشْرَبُ",
+          isCorrect: false,
+          feedback: "Faux ! 'Ya' c'est pour 'Il'",
+        },
+      ],
+    },
+    {
+      pronoun: "نَحْنُ (Nahnu)",
+      translation: "Nous buvons",
+      options: [
+        {
+          text: "أَشْرَبُ",
+          isCorrect: false,
+          feedback: "Non, 'A' c'est pour 'Je'",
+        },
+        {
+          text: "نَشْرَبُ",
+          isCorrect: true,
+          feedback: "SUPER ! ✅ 'Na' pour 'Nahnu' (Nous)",
+        },
+        {
+          text: "يَشْرَبُ",
+          isCorrect: false,
+          feedback: "Non, 'Ya' c'est pour 'Il'",
+        },
+      ],
+    },
 
+    // --- VERBE JOUER (La'iba) ---
+    {
+      pronoun: "هُوَ (Huwa)",
+      translation: "Il joue",
+      options: [
+        {
+          text: "تَلْعَبُ",
+          isCorrect: false,
+          feedback: "Presque ! Mais 'Ta' c'est pour 'Elle' ou 'Tu'",
+        },
+        {
+          text: "يَلْعَبُ",
+          isCorrect: true,
+          feedback: "EXCELLENT ! ✅ 'Ya' pour 'Huwa' (Il)",
+        },
+        {
+          text: "أَلْعَبُ",
+          isCorrect: false,
+          feedback: "Faux ! 'A' c'est pour 'Moi'",
+        },
+      ],
+    },
+    {
+      pronoun: "أَنَا (Ana)",
+      translation: "Je joue",
+      options: [
+        {
+          text: "يَلْعَبُ",
+          isCorrect: false,
+          feedback: "Non, 'Ya' c'est pour 'Il'",
+        },
+        {
+          text: "نَلْعَبُ",
+          isCorrect: false,
+          feedback: "Non, 'Na' c'est pour 'Nous'",
+        },
+        {
+          text: "أَلْعَبُ",
+          isCorrect: true,
+          feedback: "BRAVO ! ✅ 'A' pour 'Ana' (Je)",
+        },
+      ],
+    },
+
+    // --- VERBE LIRE (Qara'a) ---
+    {
+      pronoun: "نَحْنُ (Nahnu)",
+      translation: "Nous lisons",
+      options: [
+        {
+          text: "أَقْرَأُ",
+          isCorrect: false,
+          feedback: "Faux ! 'A' c'est pour 'Je'",
+        },
+        {
+          text: "تَقْرَأُ",
+          isCorrect: false,
+          feedback: "Faux ! 'Ta' c'est pour 'Tu'",
+        },
+        {
+          text: "نَقْرَأُ",
+          isCorrect: true,
+          feedback: "PARFAIT ! ✅ 'Na' pour 'Nahnu'",
+        },
+      ],
+    },
+    {
+      pronoun: "هِيَ (Hiya)",
+      translation: "Elle lit",
+      options: [
+        {
+          text: "تَقْرَأُ",
+          isCorrect: true,
+          feedback: "OUI ! ✅ 'Ta' pour 'Hiya' (Elle)",
+        },
+        {
+          text: "يَقْرَأُ",
+          isCorrect: false,
+          feedback: "Non, 'Ya' c'est pour 'Il'",
+        },
+        {
+          text: "أَقْرَأُ",
+          isCorrect: false,
+          feedback: "Non, 'A' c'est pour 'Je'",
+        },
+      ],
+    },
+
+    // --- VERBE HABITER (Sakana) ---
+    {
+      pronoun: "أَنْتَ (Anta)",
+      translation: "Tu (garçon) habites",
+      options: [
+        {
+          text: "تَسْكُنُ",
+          isCorrect: true,
+          feedback: "OUI ! ✅ 'Ta' pour 'Anta' (Tu)",
+        },
+        {
+          text: "يَسْكُنُ",
+          isCorrect: false,
+          feedback: "Faux ! 'Ya' c'est pour 'Il'",
+        },
+        {
+          text: "أَسْكُنُ",
+          isCorrect: false,
+          feedback: "Faux ! 'A' c'est pour 'Moi'",
+        },
+      ],
+    },
+    {
+      pronoun: "هُوَ (Huwa)",
+      translation: "Il habite",
+      options: [
+        {
+          text: "تَسْكُنُ",
+          isCorrect: false,
+          feedback: "Non, 'Ta' c'est pour 'Tu'",
+        },
+        {
+          text: "يَسْكُنُ",
+          isCorrect: true,
+          feedback: "BRAVO ! ✅ 'Ya' pour 'Huwa'",
+        },
+        {
+          text: "نَسْكُنُ",
+          isCorrect: false,
+          feedback: "Non, 'Na' c'est pour 'Nous'",
+        },
+      ],
+    },
+
+    // --- VERBE MANGER (Akala) ---
+    {
+      pronoun: "أَنَا (Ana)",
+      translation: "Je mange",
+      options: [
+        {
+          text: "آكُلُ",
+          isCorrect: true,
+          feedback: "SUPER ! ✅ 'A' pour 'Moi'",
+        },
+        {
+          text: "تَأْكُلُ",
+          isCorrect: false,
+          feedback: "Non, c'est 'Tu' ou 'Elle'",
+        },
+        { text: "يَأْكُلُ", isCorrect: false, feedback: "Non, c'est 'Il'" },
+      ],
+    },
+    {
+      pronoun: "نَحْنُ (Nahnu)",
+      translation: "Nous mangeons",
+      options: [
+        {
+          text: "نَأْكُلُ",
+          isCorrect: true,
+          feedback: "OUI ! ✅ 'Na' pour 'Nous'",
+        },
+        { text: "تَأْكُلُ", isCorrect: false, feedback: "Non, c'est 'Tu'" },
+        { text: "آكُلُ", isCorrect: false, feedback: "Non, c'est 'Je'" },
+      ],
+    },
+
+    // --- VERBE ÉCRIRE (Kataba) ---
+    {
+      pronoun: "هُوَ (Huwa)",
+      translation: "Il écrit",
+      options: [
+        { text: "أَكْتُبُ", isCorrect: false, feedback: "Non, c'est 'Je'" },
+        { text: "تَكْتُبُ", isCorrect: false, feedback: "Non, c'est 'Tu'" },
+        {
+          text: "يَكْتُبُ",
+          isCorrect: true,
+          feedback: "PARFAIT ! ✅ 'Ya' pour 'Il'",
+        },
+      ],
+    },
+    {
+      pronoun: "أَنْتَ (Anta)",
+      translation: "Tu écrit",
+      options: [
+        {
+          text: "تَكْتُبُ",
+          isCorrect: true,
+          feedback: "BRAVO ! ✅ 'Ta' pour 'Tu'",
+        },
+        { text: "نَكْتُبُ", isCorrect: false, feedback: "Non, c'est 'Nous'" },
+        { text: "يَكْتُبُ", isCorrect: false, feedback: "Non, c'est 'Il'" },
+      ],
+    },
+
+    // --- VERBE ALLER (Dhahaba) ---
+    {
+      pronoun: "أَنَا (Ana)",
+      translation: "Je vais",
+      options: [
+        { text: "أَذْهَبُ", isCorrect: true, feedback: "✅ 'A' pour 'Je'" },
+        { text: "يَذْهَبُ", isCorrect: false, feedback: "Non, c'est 'Il'" },
+        { text: "تَذْهَبُ", isCorrect: false, feedback: "Non, c'est 'Tu'" },
+      ],
+    },
+    {
+      pronoun: "نَحْنُ (Nahnu)",
+      translation: "Nous allons",
+      options: [
+        { text: "تَذْهَبُ", isCorrect: false, feedback: "Non, c'est 'Tu'" },
+        { text: "نَذْهَبُ", isCorrect: true, feedback: "✅ 'Na' pour 'Nous'" },
+        { text: "يَذْهَبُ", isCorrect: false, feedback: "Non, c'est 'Il'" },
+      ],
+    },
+
+    // --- VERBE SORTIR (Kharaja) ---
+    {
+      pronoun: "هِيَ (Hiya)",
+      translation: "Elle sort",
+      options: [
+        { text: "تَخْرُجُ", isCorrect: true, feedback: "✅ 'Ta' pour 'Elle'" },
+        { text: "يَخْرُجُ", isCorrect: false, feedback: "Non, c'est 'Il'" },
+        { text: "أَخْرُجُ", isCorrect: false, feedback: "Non, c'est 'Je'" },
+      ],
+    },
+    {
+      pronoun: "هُوَ (Huwa)",
+      translation: "Il sort",
+      options: [
+        { text: "تَخْرُجُ", isCorrect: false, feedback: "Non, c'est 'Elle'" },
+        { text: "يَخْرُجُ", isCorrect: true, feedback: "✅ 'Ya' pour 'Il'" },
+        { text: "نَخْرُجُ", isCorrect: false, feedback: "Non, c'est 'Nous'" },
+      ],
+    },
+
+    // --- VERBE ENTRER (Dakhala) ---
+    {
+      pronoun: "أَنَا (Ana)",
+      translation: "J'entre",
+      options: [
+        { text: "تَدْخُلُ", isCorrect: false, feedback: "Non, c'est 'Tu'" },
+        { text: "أَدْخُلُ", isCorrect: true, feedback: "✅ 'A' pour 'Je'" },
+        { text: "نَدْخُلُ", isCorrect: false, feedback: "Non, c'est 'Nous'" },
+      ],
+    },
+    {
+      pronoun: "أَنْتَ (Anta)",
+      translation: "Tu entres",
+      options: [
+        { text: "تَدْخُلُ", isCorrect: true, feedback: "✅ 'Ta' pour 'Tu'" },
+        { text: "يَدْخُلُ", isCorrect: false, feedback: "Non, c'est 'Il'" },
+        { text: "أَدْخُلُ", isCorrect: false, feedback: "Non, c'est 'Je'" },
+      ],
+    },
+
+    // --- VERBE DESSINER (Rasama) ---
+    {
+      pronoun: "نَحْنُ (Nahnu)",
+      translation: "Nous dessinons",
+      options: [
+        { text: "أَرْسُمُ", isCorrect: false, feedback: "Non, c'est 'Je'" },
+        { text: "تَرْسُمُ", isCorrect: false, feedback: "Non, c'est 'Tu'" },
+        { text: "نَرْسُمُ", isCorrect: true, feedback: "✅ 'Na' pour 'Nous'" },
+      ],
+    },
+    {
+      pronoun: "هُوَ (Huwa)",
+      translation: "Il dessine",
+      options: [
+        { text: "يَرْسُمُ", isCorrect: true, feedback: "✅ 'Ya' pour 'Il'" },
+        { text: "تَرْسُمُ", isCorrect: false, feedback: "Non, c'est 'Elle'" },
+        { text: "أَرْسُمُ", isCorrect: false, feedback: "Non, c'est 'Je'" },
+      ],
+    },
+    // --- LE DÉFI DE LIYANA (Féminin) ---
+    {
+      pronoun: "أَنْتِ (Anti)",
+      translation: "Tu (fille) bois",
+      options: [
+        {
+          text: "تَشْرَبُ",
+          isCorrect: false,
+          feedback: "Presque ! Ça c'est pour un garçon (Anta).",
+        },
+        {
+          text: "تَشْرَبِينَ",
+          isCorrect: true,
+          feedback:
+            "MAGNIFIQUE ! ✅ Pour une fille (Anti), on ajoute 'ina' à la fin !",
+        },
+        { text: "أَشْرَبُ", isCorrect: false, feedback: "Non, ça c'est 'Je'." },
+      ],
+    },
+    {
+      pronoun: "أَنْتِ (Anti)",
+      translation: "Tu (fille) joues",
+      options: [
+        {
+          text: "تَلْعَبِينَ",
+          isCorrect: true,
+          feedback: "BRAVO Liyana ! ✅ Le 'Ta' au début et le 'ina' à la fin !",
+        },
+        { text: "يَلْعَبُ", isCorrect: false, feedback: "Non, c'est 'Il'." },
+        {
+          text: "تَلْعَبُ",
+          isCorrect: false,
+          feedback: "Ça c'est pour Halim (Anta) !",
+        },
+      ],
+    },
+
+    // --- LE DÉFI DE LA NÉGATION ---
+    {
+      pronoun: "أَنَا لا (Ana La)",
+      translation: "Je ne mange pas",
+      options: [
+        {
+          text: "لا آكُلُ",
+          isCorrect: true,
+          feedback: "EXCELLENT ! ✅ 'La' + le verbe = Je ne fais pas l'action.",
+        },
+        {
+          text: "لا تَأْكُلُ",
+          isCorrect: false,
+          feedback: "Ça c'est 'Tu ne manges pas'.",
+        },
+        { text: "آكُلُ", isCorrect: false, feedback: "Ça c'est 'Je mange' !" },
+      ],
+    },
+  ];
+
+  const negationQuestions = [
+  // --- NÉGATION : BOIRE ---
+  {
+    pronoun: "أَنَا لا (Ana La)",
+    translation: "Je ne bois pas",
+    options: [
+      { text: "لا أَشْرَبُ", isCorrect: true, feedback: "GÉNIAL ! ✅ Le bouclier 'LA' protège bien le verbe 'Moi'." },
+      { text: "أَشْرَبُ لا", isCorrect: false, feedback: "Oups ! En arabe, le 'LA' se met TOUJOURS avant le verbe." },
+      { text: "لا تَشْرَبُ", isCorrect: false, feedback: "C'est la bonne négation, mais pour 'Tu'." },
+    ],
+  },
+
+  // --- NÉGATION : JOUER ---
+  {
+    pronoun: "هُوَ لا (Huwa La)",
+    translation: "Il ne joue pas",
+    options: [
+      { text: "يَلْعَبُ لا", isCorrect: false, feedback: "Le bouclier est du mauvais côté ! Mets-le devant." },
+      { text: "لا يَلْعَبُ", isCorrect: true, feedback: "TRÈS BIEN ! ✅ Tu as bien mis le 'LA' devant 'Il joue'." },
+      { text: "لا أَلْعَبُ", isCorrect: false, feedback: "Presque, mais ça c'est 'Je ne joue pas'." },
+    ],
+  },
+
+  // --- NÉGATION : LIRE ---
+  {
+    pronoun: "نَحْنُ لا (Nahnu La)",
+    translation: "Nous ne lisons pas",
+    options: [
+      { text: "لا نَقْرَأُ", isCorrect: true, feedback: "PARFAIT ! ✅ Nahnu + La + Naqra'u." },
+      { text: "نَقْرَأُ", isCorrect: false, feedback: "Ça c'est 'Nous lisons'. Il manque le 'NON' !" },
+      { text: "لا أَقْرَأُ", isCorrect: false, feedback: "C'est 'Je ne lis pas'. On cherche 'Nous'." },
+    ],
+  },
+
+  // --- NÉGATION : ÉCRIRE ---
+  {
+    pronoun: "أَنْتَ لا (Anta La)",
+    translation: "Tu n'écris pas",
+    options: [
+      { text: "لا يَكْتُبُ", isCorrect: false, feedback: "C'est 'Il n'écrit pas'. Cherche le 'Ta' pour 'Tu'." },
+      { text: "لا تَكْتُبُ", isCorrect: true, feedback: "BRAVO ! ✅ Le bouclier est à la bonne place pour 'Tu'." },
+      { text: "تَكْتُبُ", isCorrect: false, feedback: "Tu as oublié de dire 'NON' !" },
+    ],
+  },
+
+  // --- NÉGATION : ALLER ---
+  {
+    pronoun: "هِيَ لا (Hiya La)",
+    translation: "Elle ne va pas",
+    options: [
+      { text: "لا تَذْهَبُ", isCorrect: true, feedback: "MAGNIFIQUE ! ✅ 'Ta' pour 'Elle' avec son bouclier 'La'." },
+      { text: "لا أَذْهَبُ", isCorrect: false, feedback: "C'est 'Je ne vais pas'." },
+      { text: "يَذْهَبُ لا", isCorrect: false, feedback: "Le bouclier est mal placé et c'est pour 'Il' !" },
+    ],
+  },
+
+  // --- NÉGATION : ÉTUDIER ---
+  {
+    pronoun: "نَحْنُ لا (Nahnu La)",
+    translation: "Nous n'étudions pas",
+    options: [
+      { text: "نَدْرُسُ", isCorrect: false, feedback: "C'est 'Nous étudions'. Ajoute le 'LA' !" },
+      { text: "لا نَدْرُسُ", isCorrect: true, feedback: "OUI ! ✅ C'est la bonne façon de dire 'NON'." },
+      { text: "لا تَدْرُسُ", isCorrect: false, feedback: "C'est pour 'Tu' ou 'Elle'." },
+    ],
+  },
+
+  // --- NÉGATION : SORTIR ---
+  {
+    pronoun: "أَنَا لا (Ana La)",
+    translation: "Je ne sors pas",
+    options: [
+      { text: "أَخْرُجُ", isCorrect: false, feedback: "C'est 'Je sors'. On veut dire le contraire !" },
+      { text: "لا أَخْرُجُ", isCorrect: true, feedback: "SUPER ! ✅ Tu es un champion de la négation." },
+      { text: "لا نَخْرُجُ", isCorrect: false, feedback: "C'est 'Nous ne sortons pas'." },
+    ],
+  },
+
+  // --- NÉGATION : DESSINER ---
+  {
+    pronoun: "هُوَ لا (Huwa La)",
+    translation: "Il ne dessine pas",
+    options: [
+      { text: "لا يَرْسُمُ", isCorrect: true, feedback: "C'EST ÇA ! ✅ Huwa + La + Yarsumu." },
+      { text: "لا تَرْسُمُ", isCorrect: false, feedback: "C'est pour 'Tu' ou 'Elle'." },
+      { text: "يَرْسُمُ لا", isCorrect: false, feedback: "Attention à la place du bouclier !" },
+    ],
+  },
+];
+
+  const handleAnswer = (option) => {
+    alert(option.feedback);
+    if (option.isCorrect) setScore(score + 1);
+
+    if (currentStep < questions.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      setShowFinished(true);
+    }
+  };
+
+  const resetQuiz = () => {
+    setCurrentStep(0);
+    setScore(0);
+    setShowFinished(false);
+  };
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
       {/* Barre de navigation / Header de la séance */}
@@ -36,81 +517,120 @@ const Conjugaison = ({ onBack }) => {
               exit={{ opacity: 0, x: 20 }}
               className="space-y-16"
             >
-
               {/* --- SECTION : LES COMPOSANTS DE LA PHRASE (AQSAM AL-KALAM) --- */}
-<section className="space-y-8">
-  <div className="bg-white p-8 rounded-[40px] shadow-xl border-2 border-slate-100">
-    <div className="text-center mb-10">
-      <h2 className="text-3xl font-black text-slate-800 mb-2">De quoi est faite une phrase ? 🧱</h2>
-      <p className="text-slate-500 italic">"Aqsam Al-Kalam" : Les 3 types de mots en Arabe</p>
-    </div>
+              <section className="space-y-8">
+                <div className="bg-white p-8 rounded-[40px] shadow-xl border-2 border-slate-100">
+                  <div className="text-center mb-10">
+                    <h2 className="text-3xl font-black text-slate-800 mb-2">
+                      De quoi est faite une phrase ? 🧱
+                    </h2>
+                    <p className="text-slate-500 italic">
+                      "Aqsam Al-Kalam" : Les 3 types de mots en Arabe
+                    </p>
+                  </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {/* 1. LE NOM */}
-      <div className="bg-rose-50 p-6 rounded-3xl border-2 border-rose-100 flex flex-col items-center text-center">
-        <div className="w-16 h-16 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-rose-200">اسْم</div>
-        <h3 className="text-rose-700 font-bold text-xl mb-2">L'ISM (Le Nom)</h3>
-        <p className="text-slate-600 text-sm leading-relaxed">
-          C'est une personne, un objet ou un animal. <br/>
-          <span className="font-bold text-rose-500">Ex: بَيْت (Maison), وَلَد (Garçon)</span>
-        </p>
-      </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* 1. LE NOM */}
+                    <div className="bg-rose-50 p-6 rounded-3xl border-2 border-rose-100 flex flex-col items-center text-center">
+                      <div className="w-16 h-16 bg-rose-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-rose-200">
+                        اسْم
+                      </div>
+                      <h3 className="text-rose-700 font-bold text-xl mb-2">
+                        L'ISM (Le Nom)
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">
+                        C'est une personne, un objet ou un animal. <br />
+                        <span className="font-bold text-rose-500">
+                          Ex: بَيْت (Maison), وَلَد (Garçon)
+                        </span>
+                      </p>
+                    </div>
 
-      {/* 2. LE VERBE */}
-      <div className="bg-sky-50 p-6 rounded-3xl border-2 border-sky-100 flex flex-col items-center text-center">
-        <div className="w-16 h-16 bg-sky-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-sky-200">فِعْل</div>
-        <h3 className="text-sky-700 font-bold text-xl mb-2">Le FI'L (Le Verbe)</h3>
-        <p className="text-slate-600 text-sm leading-relaxed">
-          C'est l'action qui change avec le temps. <br/>
-          <span className="font-bold text-sky-500">Ex: يَسْكُنُ (Il habite), يَلْعَبُ (Il joue)</span>
-        </p>
-      </div>
+                    {/* 2. LE VERBE */}
+                    <div className="bg-sky-50 p-6 rounded-3xl border-2 border-sky-100 flex flex-col items-center text-center">
+                      <div className="w-16 h-16 bg-sky-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-sky-200">
+                        فِعْل
+                      </div>
+                      <h3 className="text-sky-700 font-bold text-xl mb-2">
+                        Le FI'L (Le Verbe)
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">
+                        C'est l'action qui change avec le temps. <br />
+                        <span className="font-bold text-sky-500">
+                          Ex: يَسْكُنُ (Il habite), يَلْعَبُ (Il joue)
+                        </span>
+                      </p>
+                    </div>
 
-      {/* 3. LA PARTICULE */}
-      <div className="bg-amber-50 p-6 rounded-3xl border-2 border-amber-100 flex flex-col items-center text-center">
-        <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-amber-200">حَرْف</div>
-        <h3 className="text-amber-700 font-bold text-xl mb-2">Le HARF (Lien)</h3>
-        <p className="text-slate-600 text-sm leading-relaxed">
-          Ce sont les petits mots qui collent la phrase. <br/>
-          <span className="font-bold text-amber-500">Ex: فِي (Dans), عَلَى (Sur), بِـ (Avec)</span>
-        </p>
-      </div>
-    </div>
+                    {/* 3. LA PARTICULE */}
+                    <div className="bg-amber-50 p-6 rounded-3xl border-2 border-amber-100 flex flex-col items-center text-center">
+                      <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center text-white text-3xl font-script mb-4 shadow-lg shadow-amber-200">
+                        حَرْف
+                      </div>
+                      <h3 className="text-amber-700 font-bold text-xl mb-2">
+                        Le HARF (Lien)
+                      </h3>
+                      <p className="text-slate-600 text-sm leading-relaxed">
+                        Ce sont les petits mots qui collent la phrase. <br />
+                        <span className="font-bold text-amber-500">
+                          Ex: فِي (Dans), عَلَى (Sur), بِـ (Avec)
+                        </span>
+                      </p>
+                    </div>
+                  </div>
 
-    {/* EXEMPLE DE DÉCOMPOSITION VISUELLE */}
-    <div className="mt-12 p-8 bg-slate-50 rounded-3xl border border-slate-100">
-      <h4 className="text-center font-bold text-slate-400 uppercase text-xs tracking-widest mb-6">Analyse d'une phrase complète</h4>
-      <div className="flex flex-wrap justify-center items-center gap-4 text-center">
-        
-        {/* Verbe */}
-        <div className="flex flex-col items-center">
-          <div className="px-6 py-4 bg-sky-500 text-white rounded-2xl font-script text-3xl shadow-md">يَلْعَبُ</div>
-          <p className="mt-2 text-xs font-bold text-sky-600">FI'L (Action)</p>
-        </div>
+                  {/* EXEMPLE DE DÉCOMPOSITION VISUELLE */}
+                  <div className="mt-12 p-8 bg-slate-50 rounded-3xl border border-slate-100">
+                    <h4 className="text-center font-bold text-slate-400 uppercase text-xs tracking-widest mb-6">
+                      Analyse d'une phrase complète
+                    </h4>
+                    <div className="flex flex-wrap justify-center items-center gap-4 text-center">
+                      {/* Verbe */}
+                      <div className="flex flex-col items-center">
+                        <div className="px-6 py-4 bg-sky-500 text-white rounded-2xl font-script text-3xl shadow-md">
+                          يَلْعَبُ
+                        </div>
+                        <p className="mt-2 text-xs font-bold text-sky-600">
+                          FI'L (Action)
+                        </p>
+                      </div>
 
-        {/* Nom 1 */}
-        <div className="flex flex-col items-center">
-          <div className="px-6 py-4 bg-rose-500 text-white rounded-2xl font-script text-3xl shadow-md">الْوَلَدُ</div>
-          <p className="mt-2 text-xs font-bold text-rose-600">ISM (Sujet)</p>
-        </div>
+                      {/* Nom 1 */}
+                      <div className="flex flex-col items-center">
+                        <div className="px-6 py-4 bg-rose-500 text-white rounded-2xl font-script text-3xl shadow-md">
+                          الْوَلَدُ
+                        </div>
+                        <p className="mt-2 text-xs font-bold text-rose-600">
+                          ISM (Sujet)
+                        </p>
+                      </div>
 
-        {/* Harf */}
-        <div className="flex flex-col items-center">
-          <div className="px-6 py-4 bg-amber-500 text-white rounded-2xl font-script text-3xl shadow-md">فِي</div>
-          <p className="mt-2 text-xs font-bold text-amber-600">HARF (Lien)</p>
-        </div>
+                      {/* Harf */}
+                      <div className="flex flex-col items-center">
+                        <div className="px-6 py-4 bg-amber-500 text-white rounded-2xl font-script text-3xl shadow-md">
+                          فِي
+                        </div>
+                        <p className="mt-2 text-xs font-bold text-amber-600">
+                          HARF (Lien)
+                        </p>
+                      </div>
 
-        {/* Nom 2 */}
-        <div className="flex flex-col items-center">
-          <div className="px-6 py-4 bg-rose-500 text-white rounded-2xl font-script text-3xl shadow-md">الْبَيْتِ</div>
-          <p className="mt-2 text-xs font-bold text-rose-600">ISM (Lieu)</p>
-        </div>
-
-      </div>
-      <p className="text-center mt-8 text-slate-500 italic text-lg">"Le garçon joue dans la maison"</p>
-    </div>
-  </div>
-</section>
+                      {/* Nom 2 */}
+                      <div className="flex flex-col items-center">
+                        <div className="px-6 py-4 bg-rose-500 text-white rounded-2xl font-script text-3xl shadow-md">
+                          الْبَيْتِ
+                        </div>
+                        <p className="mt-2 text-xs font-bold text-rose-600">
+                          ISM (Lieu)
+                        </p>
+                      </div>
+                    </div>
+                    <p className="text-center mt-8 text-slate-500 italic text-lg">
+                      "Le garçon joue dans la maison"
+                    </p>
+                  </div>
+                </div>
+              </section>
               {/* --- PARTIE 1 : L'INTRODUCTION (LA RACINE) --- */}
               <section className="space-y-6">
                 <div className="text-center space-y-4">
@@ -460,133 +980,287 @@ const Conjugaison = ({ onBack }) => {
                 </div>
               </section>
 
-            
-
               {/* --- SECTION DÉFIS FINAUX --- */}
-              <section className="space-y-8">
+              <section className="space-y-8 max-w-2xl mx-auto p-4">
                 <div className="bg-slate-900 rounded-[40px] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -mr-16 -mt-16"></div>
 
+                  {!showFinished ? (
+                    <>
+                      <div className="text-center mb-10">
+                        <h2 className="text-3xl font-black text-indigo-400 mb-2 font-serif">
+                          🏆 DÉFI DE CONJUGAISON 🏆
+                        </h2>
+                        <p className="text-slate-400">
+                          Question {currentStep + 1} sur {questions.length}
+                        </p>
+                      </div>
+
+                      <div className="space-y-8">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-3">
+                            <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
+                              {currentStep + 1}
+                            </span>
+                            <p className="text-xl">
+                              Complète pour :{" "}
+                              <span className="text-indigo-400 font-bold">
+                                {questions[currentStep].pronoun}
+                              </span>
+                              <br />
+                              <span className="text-sm text-slate-400 italic">
+                                ({questions[currentStep].translation})
+                              </span>
+                            </p>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            {questions[currentStep].options.map(
+                              (option, idx) => (
+                                <button
+                                  key={idx}
+                                  onClick={() => handleAnswer(option)}
+                                  className="p-4 bg-white/5 hover:bg-indigo-500/20 border border-white/10 rounded-2xl transition font-serif text-2xl"
+                                >
+                                  {option.text}
+                                </button>
+                              ),
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-center space-y-6">
+                      <h2 className="text-4xl font-black text-green-400">
+                        TERMINE ! 🎉
+                      </h2>
+                      <p className="text-2xl">
+                        Score :{" "}
+                        <span className="font-bold text-indigo-400">
+                          {score} / {questions.length}
+                        </span>
+                      </p>
+                      <p className="text-slate-400">Bravo Halim et Liyana !</p>
+                      <button
+                        onClick={resetQuiz}
+                        className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-full font-bold transition"
+                      >
+                        Recommencer
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              {/* --- NOUVELLE SECTION : LA NÉGATION (LA) --- */}
+              <section className="space-y-8">
+                <div className="bg-white p-8 rounded-[40px] shadow-xl border-2 border-slate-100 relative overflow-hidden">
+                  {/* Petit badge décoratif */}
+                  <div className="absolute -top-2 -right-2 bg-rose-500 text-white px-6 py-2 rounded-bl-3xl font-black text-sm rotate-3 shadow-lg">
+                    NOUVEAU ! 🛡️
+                  </div>
+
                   <div className="text-center mb-10">
-                    <h2 className="text-3xl font-black text-indigo-400 mb-2 font-serif">
-                      🏆 LE GRAND DÉFI FINAL 🏆
+                    <h2 className="text-3xl font-black text-slate-800 mb-2">
+                      Le Bouclier du "NON" 🛡️
                     </h2>
-                    <p className="text-slate-400">
-                      Réponds correctement aux 3 défis pour valider ta séance !
+                    <p className="text-slate-500 italic">
+                      "La" (لا) : Pour dire que l'on ne fait pas quelque chose.
                     </p>
                   </div>
 
-                  <div className="space-y-12">
-                    {/* DÉFI 1 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
-                          1
-                        </span>
-                        <p className="text-xl">
-                          Comment dit-on{" "}
-                          <span className="text-indigo-400 font-bold">
-                            "Nous mangeons"
-                          </span>{" "}
-                          ?
+                      <div className="bg-rose-50 p-6 rounded-3xl border-2 border-rose-100">
+                        <h4 className="font-bold text-rose-700 mb-2 flex items-center gap-2">
+                          <span>💡</span> La règle est simple :
+                        </h4>
+                        <p className="text-slate-600 leading-relaxed">
+                          On ajoute juste le petit mot{" "}
+                          <span className="font-bold text-rose-600 text-xl font-script">
+                            لا
+                          </span>
+                          <strong> AVANT</strong> le verbe. Le verbe reste
+                          exactement le même !
                         </p>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <button
-                          onClick={() =>
-                            alert("Faux ! 'A' c'est pour 'Ana' (Je)")
-                          }
-                          className="p-4 bg-white/5 hover:bg-red-500/20 border border-white/10 rounded-2xl transition font-script text-2xl"
-                        >
-                          آكُلُ
-                        </button>
-                        <button
-                          onClick={() =>
-                            alert("Faux ! 'Ta' c'est pour 'Anta' (Tu)")
-                          }
-                          className="p-4 bg-white/5 hover:bg-red-500/20 border border-white/10 rounded-2xl transition font-script text-2xl"
-                        >
-                          تَأْكُلُ
-                        </button>
-                        <button
-                          onClick={() =>
-                            alert("BRAVO ! ✅ 'Na' pour 'Nahnu' (Nous)")
-                          }
-                          className="p-4 bg-white/5 hover:bg-green-500/40 border border-indigo-500/50 rounded-2xl transition font-script text-2xl"
-                        >
-                          نَأْكُلُ
-                        </button>
+
+                      <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100 italic text-indigo-700 text-sm">
+                        "C'est comme mettre un parapluie : le verbe dessous ne
+                        change pas, il est juste protégé !"
                       </div>
                     </div>
 
-                    {/* DÉFI 2 */}
+                    {/* Comparaison Visuelle */}
                     <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
-                          2
-                        </span>
-                        <p className="text-xl">
-                          Complète :{" "}
-                          <span className="text-indigo-400 font-bold">
-                            هُوَ ....... فِي الْبَيْتِ
-                          </span>{" "}
-                          (Il habite)
-                        </p>
+                      <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div className="text-center">
+                          <p className="text-xs font-bold text-slate-400 uppercase mb-1">
+                            Affirmatif
+                          </p>
+                          <p className="text-2xl font-script font-bold text-sky-600">
+                            أَشْرَبُ
+                          </p>
+                          <p className="text-[10px] text-slate-400">Je bois</p>
+                        </div>
+                        <div className="text-2xl">➡️</div>
+                        <div className="text-center">
+                          <p className="text-xs font-bold text-rose-400 uppercase mb-1">
+                            Négatif
+                          </p>
+                          <p className="text-2xl font-script font-bold text-rose-600">
+                            لا أَشْرَبُ
+                          </p>
+                          <p className="text-[10px] text-slate-400">
+                            Je ne bois pas
+                          </p>
+                        </div>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <button
-                          onClick={() =>
-                            alert("Presque ! Mais 'Ta' c'est pour 'Tu'")
-                          }
-                          className="p-4 bg-white/5 hover:bg-red-500/20 border border-white/10 rounded-2xl transition font-script text-2xl"
-                        >
-                          تَسْكُنُ
-                        </button>
-                        <button
-                          onClick={() =>
-                            alert("EXCELLENT ! ✅ 'Ya' pour 'Huwa' (Il)")
-                          }
-                          className="p-4 bg-white/5 hover:bg-green-500/40 border border-indigo-500/50 rounded-2xl transition font-script text-2xl"
-                        >
-                          يَسْكُنُ
-                        </button>
+
+                      <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <div className="text-center">
+                          <p className="text-xs font-bold text-slate-400 uppercase mb-1">
+                            Affirmatif
+                          </p>
+                          <p className="text-2xl font-script font-bold text-sky-600">
+                            يَلْعَبُ
+                          </p>
+                          <p className="text-[10px] text-slate-400">Il joue</p>
+                        </div>
+                        <div className="text-2xl">➡️</div>
+                        <div className="text-center">
+                          <p className="text-xs font-bold text-rose-400 uppercase mb-1">
+                            Négatif
+                          </p>
+                          <p className="text-2xl font-script font-bold text-rose-600">
+                            لا يَلْعَبُ
+                          </p>
+                          <p className="text-[10px] text-slate-400">
+                            Il ne joue pas
+                          </p>
+                        </div>
                       </div>
                     </div>
+                  </div>
 
-                    {/* DÉFI 3 */}
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <span className="flex-shrink-0 w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center font-bold text-sm">
-                          3
-                        </span>
-                        <p className="text-xl">
-                          Trouve la bonne lettre pour{" "}
-                          <span className="text-indigo-400 font-bold">
-                            "Ana" (Je)
-                          </span>{" "}
-                          :
-                        </p>
-                      </div>
-                      <div className="flex justify-center gap-4">
-                        {["يَ", "تَ", "أَ", "نَ"].map((lettre, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => {
-                              if (lettre === "أَ")
-                                alert("PARFAIT ! ⭐ C'est la lettre du 'Moi'");
-                              else alert("Réessaie !");
-                            }}
-                            className="w-16 h-16 bg-white/10 hover:bg-indigo-500 border border-white/20 rounded-xl flex items-center justify-center text-3xl font-script transition"
-                          >
-                            {lettre}
-                          </button>
-                        ))}
-                      </div>
+                  {/* Petit exercice rapide interactif (Optionnel) */}
+                  <div className="mt-10 p-6 bg-slate-900 rounded-3xl text-center">
+                    <p className="text-slate-400 text-sm mb-4">
+                      Comment dirais-tu "Nous ne mangeons pas" ?
+                    </p>
+                    <div className="flex justify-center gap-4">
+                      <button
+                        onClick={() =>
+                          alert("Réessaie ! Il manque le bouclier 'LA'")
+                        }
+                        className="px-6 py-2 bg-white/10 hover:bg-white/20 rounded-xl font-script text-xl text-white transition"
+                      >
+                        نَأْكُلُ
+                      </button>
+                      <button
+                        onClick={() => alert("BRAVO ! ✅ لا + نَأْكُلُ")}
+                        className="px-6 py-2 bg-rose-500 hover:bg-rose-600 rounded-xl font-script text-xl text-white transition shadow-lg shadow-rose-900/20"
+                      >
+                        لا نَأْكُلُ
+                      </button>
                     </div>
                   </div>
                 </div>
               </section>
 
+              {/* --- SECTION DÉFI NÉGATION "LA" --- */}
+<section className="space-y-8 max-w-2xl mx-auto p-4">
+  <div className="bg-slate-900 rounded-[40px] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden border-2 border-rose-500/20">
+    {/* Décoration : Un grand "LA" en fond */}
+    <div className="absolute top-0 right-0 p-4 opacity-5 text-9xl font-script text-rose-500 pointer-events-none">
+      لا
+    </div>
+
+    {!showFinished ? (
+      <>
+        {/* En-tête du Quiz */}
+        <div className="text-center mb-10">
+          <div className="inline-block px-4 py-1 bg-rose-500/20 rounded-full text-rose-400 text-xs font-bold uppercase tracking-widest mb-4 border border-rose-500/30">
+            🛡️ Le Bouclier du Non
+          </div>
+          <h2 className="text-3xl font-black text-white mb-2 font-serif">
+            DÉFI : <span className="text-rose-400">LA NÉGATION</span>
+          </h2>
+          {/* Barre de progression */}
+          <div className="w-full bg-white/10 h-1.5 rounded-full mt-6 overflow-hidden">
+            <div 
+              className="bg-rose-500 h-full transition-all duration-500"
+              style={{ width: `${((currentStep + 1) / negationQuestions.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+
+        <div className="space-y-8">
+          <div className="space-y-6">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <span className="w-12 h-12 bg-rose-600 rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-rose-900/40">
+                {currentStep + 1}
+              </span>
+              <div className="space-y-2">
+                <p className="text-sm text-slate-400 uppercase tracking-widest font-bold">Comment dire :</p>
+                <p className="text-3xl font-black text-indigo-400 underline decoration-white/20 underline-offset-8">
+                  "{negationQuestions[currentStep].translation}"
+                </p>
+                <p className="text-lg text-slate-300 italic pt-2">
+                  Pour : {negationQuestions[currentStep].pronoun}
+                </p>
+              </div>
+            </div>
+
+            {/* Grille des boutons de réponse */}
+            <div className="grid grid-cols-1 gap-4 mt-8">
+              {negationQuestions[currentStep].options.map((option, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => handleAnswer(option)}
+                  className="group relative p-6 bg-white/5 hover:bg-rose-500/20 border border-white/10 hover:border-rose-500/50 rounded-3xl transition-all duration-300 text-left"
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="text-3xl font-script font-bold text-white group-hover:text-rose-300 transition-colors">
+                      {option.text}
+                    </span>
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-rose-400 text-xl">
+                      🛡️
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </>
+    ) : (
+      /* Écran de fin du défi Négation */
+      <div className="text-center py-10 space-y-8">
+        <div className="relative inline-block">
+          <div className="text-8xl mb-4">🛡️</div>
+          <div className="absolute -top-2 -right-2 text-4xl animate-bounce">✨</div>
+        </div>
+        <h2 className="text-4xl font-black text-rose-400">
+          BOUCLIER ACTIVÉ !
+        </h2>
+        <div className="bg-white/5 rounded-3xl p-6 border border-white/10">
+          <p className="text-xl mb-2">Score de Halim et Liyana :</p>
+          <p className="text-5xl font-black text-indigo-400">
+            {score} <span className="text-2xl text-slate-500">/ {negationQuestions.length}</span>
+          </p>
+        </div>
+        <button
+          onClick={resetQuiz}
+          className="w-full py-4 bg-rose-600 hover:bg-rose-500 text-white rounded-2xl font-black text-xl shadow-xl transition-all active:scale-95"
+        >
+          REFAIRE LE DÉFI 🛡️
+        </button>
+      </div>
+    )}
+  </div>
+</section>
 
               {/* BOUTONS FINAUX */}
               <div className="flex flex-col md:flex-row gap-4 pt-10">
